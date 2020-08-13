@@ -1,26 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
 import InputSearchBarForm from "./components/InputSearchBarForm";
 import VideoCardsLayout from "./components/VideoCardsLayout";
 import VideoCardItem from "./components/VideoCardItem";
-import { youtube_query, getYOUTUBE_DATA_V3_URL, youtube_querySWRFetcher } from "apis";
+import { getYOUTUBE_DATA_V3_URL, youtube_querySWRFetcher } from "apis";
 import useSWR from 'swr'
+import {AppEasyContext} from 'App'
 
-function MainPage({searchKeyWords, setSearchKeyWords}) {
-  // const [currQueryResults, setCurrQueryResults] = useState([]);
-  // const [pageInfo, setPageInfo] = useState({
-  //   totalResults: 0,
-  //   resultsPerPage: 12,
-  // });
-  const {data: result, error} = useSWR(getYOUTUBE_DATA_V3_URL(searchKeyWords), youtube_querySWRFetcher )
-  // const onSubmit = async (values) => {
-  //   const result = await youtube_query(values.keywords);
-  //   console.log("the result", result);
-  //   if (result) {
-  //     setPageInfo((prev) => result.pageInfo);
-  //     setCurrQueryResults((prev) => result.items);
-  //   }
-  // };
+function MainPage() {  
+  const {searchText, setSearchText} = useContext(AppEasyContext)
+  const {data: result, error} = useSWR(getYOUTUBE_DATA_V3_URL(searchText), youtube_querySWRFetcher )
+
   const pageInfo = result?.pageInfo ?? {
     totalResults: 0,
     resultsPerPage: 12,
@@ -28,7 +18,7 @@ function MainPage({searchKeyWords, setSearchKeyWords}) {
   const currQueryResults = result?.items ?? [] 
 
   const onSubmit = (values) => {
-    setSearchKeyWords(prev => values.keywords)
+    setSearchText(prev => values.keywords)
   }
 
   return (
@@ -46,11 +36,4 @@ function MainPage({searchKeyWords, setSearchKeyWords}) {
 MainPage.propTypes = {};
 
 
-const MainPageEnhancer = () => {
-  const [searchKeyWords, setSearchKeyWords] = useState(null)
-  return (
-  <MainPage searchKeyWords={searchKeyWords} setSearchKeyWords={setSearchKeyWords} />
-  )
-}
-
-export default MainPageEnhancer;
+export default MainPage;
