@@ -1,8 +1,9 @@
 import React, { lazy, Suspense, useState } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import "./App.css";
+import "./css/App.css";
 
 const MainPage = lazy(() => import("pages/MainPage"));
+const CollectionsPage = lazy(() => import("pages/Collections"));
 
 const routerBaseName = "";
 
@@ -15,6 +16,7 @@ function AppRoutes() {
     <Suspense fallback={CodeSplitFallbackComponentFunc()}>
       <BrowserRouter basename={routerBaseName}>
         <Switch>
+          <Route path="/collections" component={CollectionsPage} />
           <Route path="/" component={MainPage} />
         </Switch>
       </BrowserRouter>

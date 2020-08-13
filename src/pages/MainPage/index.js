@@ -5,12 +5,13 @@ import VideoCardsLayout from "./components/VideoCardsLayout";
 import VideoCardItem from "./components/VideoCardItem";
 import { getYOUTUBE_DATA_V3_URL, youtube_querySWRFetcher } from "apis";
 import useSWR from 'swr'
+import { useHistory } from 'react-router-dom'
 import {AppEasyContext} from 'App'
 
 function MainPage() {  
   const {searchText, setSearchText} = useContext(AppEasyContext)
-  const {data: result, error} = useSWR(getYOUTUBE_DATA_V3_URL(searchText), youtube_querySWRFetcher )
-
+  const {data: result, error} = useSWR(getYOUTUBE_DATA_V3_URL(searchText), youtube_querySWRFetcher, {revalidateOnFocus: false})
+  const history = useHistory()
   const pageInfo = result?.pageInfo ?? {
     totalResults: 0,
     resultsPerPage: 12,
@@ -23,12 +24,13 @@ function MainPage() {
 
   return (
     <div>
-      <InputSearchBarForm placeholder="搜尋" onSubmit={onSubmit} />
+      <InputSearchBarForm placeholder="搜尋" onSubmit={onSubmit} searchText={searchText}/>
       <VideoCardsLayout>
         {currQueryResults.map((item) => (
           <VideoCardItem key={item.id.videoId} item={item} />
         ))}
       </VideoCardsLayout>
+      <button onClick={() => {history.push('/collections')}}>收藏</button>
     </div>
   );
 }
