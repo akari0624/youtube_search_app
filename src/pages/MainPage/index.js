@@ -4,7 +4,7 @@ import InputSearchBarForm from "./components/InputSearchBarForm";
 import VideoCardsLayout from "./components/VideoCardsLayout";
 import VideoCardItem from "./components/VideoCardItem";
 import Paginations from "./components/Paginations"
-import { getYOUTUBE_DATA_V3_URL, youtube_querySWRFetcher } from "apis";
+import { getYOUTUBE_DATA_V3_URL, youtube_querySWRFetcher, getYOUTUBE_DATA_V3_URL_MAXROW_PERFETCH, youtube_querySWRFetcher_Fetch100CountData } from "apis";
 import useSWR from 'swr'
 import { useHistory } from 'react-router-dom'
 import {AppEasyContext} from 'App'
@@ -34,7 +34,7 @@ const renderPaginations = (bunchResultCount, rowPerPage, handleChangePage) => {
 
 function MainPage() {  
   const {searchText, setSearchText} = useContext(AppEasyContext)
-  const {data, error} = useSWR(getYOUTUBE_DATA_V3_URL(searchText, 100), youtube_querySWRFetcher, {revalidateOnFocus: false})
+  const {data, error} = useSWR(getYOUTUBE_DATA_V3_URL_MAXROW_PERFETCH(searchText), youtube_querySWRFetcher_Fetch100CountData, {revalidateOnFocus: false})
   const history = useHistory()
   const pageInfo = data?.pageInfo ?? {
     totalResults: 0,
@@ -64,7 +64,7 @@ function MainPage() {
           <VideoCardItem key={item.id.videoId} item={item} />
         ))}
       </VideoCardsLayout>
-      <button onClick={() => {history.push('/collections')}}>收藏</button>
+      <button onClick={() => {history.push('/collections')}}>to收藏頁</button>
       {renderPaginations(bunchResultCount, ROW_PER_PAGE, handleChangePage)}
     </div>
   );
