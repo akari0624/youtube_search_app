@@ -1,10 +1,10 @@
 import swal from 'sweetalert2'
 
-export const getYOUTUBE_DATA_V3_URL = (searchKeyWords, dataCountPerPage = 12) => {
+export const getYOUTUBE_DATA_V3_URL = (searchKeyWords, oneTimeFetchItemCount = 12) => {
   if(!searchKeyWords) {
     return null
   }
-  return `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${searchKeyWords}&chart=mostPopular&maxResults=${dataCountPerPage}&key=${process.env.REACT_APP_YOUTUBE_API_TOKEN}`;
+  return `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${searchKeyWords}&chart=mostPopular&maxResults=${oneTimeFetchItemCount}&key=${process.env.REACT_APP_YOUTUBE_API_TOKEN}`;
 }
 
 export const youtube_query = (searchKeyWords) => {
