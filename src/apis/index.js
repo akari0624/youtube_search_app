@@ -83,7 +83,7 @@ export const youtube_querySWRFetcher_Fetch100CountData = async (url) => {
     const response1 = await fetch(url);
     invariant(response1.ok, `error: ${response1.status}`)
     const result1 = await response1.json();
-    invariant(!result1.error, result1.error.message)
+    invariant(!result1.error, `error: ${result1?.error?.message}`)
     const shouldFetchMore =
       result1?.pageInfo?.totalResults > ONE_TIME_FETCH_YOUTUBE_API_THRESHOLD;
 
@@ -93,7 +93,7 @@ export const youtube_querySWRFetcher_Fetch100CountData = async (url) => {
       const response2 = await fetch(url + `&pageToken=${nextPageToken}`);
       invariant(response2.ok, `error: ${response2.status}`)
       const result2 = await response2.json();
-      invariant(!result1.error, result1.error.message)
+      invariant(!result1.error, `error: ${result1?.error?.message}`)
       result1.items.push(...result2.items);
     }
 
