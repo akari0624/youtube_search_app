@@ -1,5 +1,6 @@
 import swal from "sweetalert2";
 import invariant from 'invariant'
+import { RDOFakeData } from './fakeData'
 
 const ONE_TIME_FETCH_YOUTUBE_API_THRESHOLD = 50;
 
@@ -79,6 +80,9 @@ export const youtube_querySWRFetcher = (url) => {
 };
 
 export const youtube_querySWRFetcher_Fetch100CountData = async (url) => {
+
+  return RDOFakeData;
+
   try {
     const response1 = await fetch(url);
     invariant(response1.ok, `error: ${response1.status}`)
