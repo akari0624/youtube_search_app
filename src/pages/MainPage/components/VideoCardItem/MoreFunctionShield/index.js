@@ -24,7 +24,7 @@ const AddToCollectionButton = styled.button`
   border-radius: 5px;
 `;
 
-function MoreFunctionShield({ onMouseLeave, itemData }) {
+function MoreFunctionShield({ onMouseLeave, itemData, onCancelCollectionDone }) {
   const collectionVideoId = `${itemData.id.kind}.${itemData.id.videoId || itemData.id.channelId}`;
 
   const isExitinCollection = checkIsAddedInCollections(collectionVideoId);
@@ -35,6 +35,9 @@ function MoreFunctionShield({ onMouseLeave, itemData }) {
     const result = removeVideoFromCollections(collectionVideoId);
     if (result) {
       setIsInCollection(false);
+      if(onCancelCollectionDone) {
+        onCancelCollectionDone()
+      }
     }
   };
   const onAddToCollection = () => {
