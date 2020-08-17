@@ -13,16 +13,14 @@ const VideoCardWrapper = styled.article`
   height: 200px;
 `;
 
-function VideoCardItem({ item }) {
+function VideoCardItem({ item, onCancelCollectionDone }) {
   const [isShowShield, setIsShowShield] = useState(false);
 
   const handleOnMouseEnter = (evt) => {
-    console.log("mouse enter");
     setIsShowShield(true);
   };
 
   const handleOnMouseLeave = (evt) => {
-    console.log("mouse leave");
     setIsShowShield(false);
   };
 
@@ -30,7 +28,7 @@ function VideoCardItem({ item }) {
     <VideoCardWrapper >
       <FunctionalVideoCardWrapper onMouseEnter={handleOnMouseEnter}>
         {isShowShield && (
-          <MoreFunctionShield onMouseLeave={handleOnMouseLeave} itemData={item}/>
+          <MoreFunctionShield onMouseLeave={handleOnMouseLeave} itemData={item} onCancelCollectionDone={onCancelCollectionDone}/>
         )}
         <div>
           <img src={item.snippet.thumbnails.default.url} alt={item.title} />

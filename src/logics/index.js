@@ -11,6 +11,15 @@ export const checkIsAddedInCollections = (itemId) => {
   return has;
 };
 
+export const getCollections = () => {
+  const collectionsLiteral = window.localStorage.getItem(
+    COLLECTIONs_KEY_IN_LOCAL_STORAGE
+  );
+  const videoCollections = collectionsLiteral && JSON.parse(collectionsLiteral)
+  return videoCollections  // object
+};
+
+
 export const addToCollections = (id, item) => {
   try {
     const _testIsCollectionsObjExit = window.localStorage.getItem(
