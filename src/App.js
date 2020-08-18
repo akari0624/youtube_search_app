@@ -1,9 +1,9 @@
 import React, { lazy, Suspense, useState } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import "./css/App.css";
 
 const MainPage = lazy(() => import("pages/MainPage"));
 const CollectionsPage = lazy(() => import("pages/Collections"));
+const VideoPlayerPage = lazy(() => import("pages/VideoPlayer"));
 
 const routerBaseName = "";
 
@@ -17,6 +17,7 @@ function AppRoutes() {
       <BrowserRouter basename={routerBaseName}>
         <Switch>
           <Route path="/collections" component={CollectionsPage} />
+          <Route path="/player" component={VideoPlayerPage} />
           <Route path="/" component={MainPage} />
         </Switch>
       </BrowserRouter>
