@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+
 import {
   checkIsAddedInCollections,
   addToCollections,
@@ -24,8 +26,14 @@ const AddToCollectionButton = styled.button`
   border-radius: 5px;
 `;
 
+
+const PlayVideoButton = styled.button`
+  border-radius: 5px;
+`;
+
 function MoreFunctionShield({ onMouseLeave, itemData, onCancelCollectionDone }) {
   const collectionVideoId = `${itemData.id.kind}.${itemData.id.videoId || itemData.id.channelId}`;
+  const history = useHistory();
 
   const isExitinCollection = checkIsAddedInCollections(collectionVideoId);
 
@@ -57,6 +65,7 @@ function MoreFunctionShield({ onMouseLeave, itemData, onCancelCollectionDone }) 
           加入收藏
         </AddToCollectionButton>
       )}
+      <PlayVideoButton onClick={() => {history.push('/player')}}>播放影片</PlayVideoButton>
     </MoreFunctionShieldWrapper>
   );
 }

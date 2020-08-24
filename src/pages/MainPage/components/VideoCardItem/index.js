@@ -9,8 +9,11 @@ const FunctionalVideoCardWrapper = styled.section`
 
 const VideoCardWrapper = styled.article`
   margin: 0.4rem;
-  width: 300px;
-  height: 200px;
+  width: 320px;
+  .imgWrapper {
+    display: flex;
+    justify-content: center;
+  } 
 `;
 
 function VideoCardItem({ item, onCancelCollectionDone }) {
@@ -30,8 +33,8 @@ function VideoCardItem({ item, onCancelCollectionDone }) {
         {isShowShield && (
           <MoreFunctionShield onMouseLeave={handleOnMouseLeave} itemData={item} onCancelCollectionDone={onCancelCollectionDone}/>
         )}
-        <div>
-          <img src={item.snippet.thumbnails.default.url} alt={item.title} />
+        <div className="imgWrapper">
+          <img src={item.snippet.thumbnails.medium.url} alt={item.title} />
         </div>
       </FunctionalVideoCardWrapper>
       <div>{item.snippet.title}</div>
