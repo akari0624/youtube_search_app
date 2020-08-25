@@ -1,21 +1,72 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
+import styled, { keyframes } from 'styled-components'
+import { useGetNowScrollDirection } from 'hooks/useGetNowScrollDirection'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      marginTop: theme.spacing(2),
-    },
-  },
-}));
+
+const bottomClimbUp = keyframes`
+  from {
+    transform: translateY(34px); 
+  }
+
+  to {
+    transform: translateY(0px);
+  }
+`
+
+const bottomSlideDown = keyframes`
+  from {
+    transform: translateY(0px); 
+  }
+
+  to {
+    transform: translateY(34px);
+  }
+`
+
+const PaginationWrapper = styled.div`
+    width: 100vw;
+    display: flex;
+    padding: 3px 0px;
+    justify-content: center;
+    & > *: {
+      marginTop: .2rem,
+    }
+    @media(max-width: 740px) {
+      background: #FFFFFF;
+      position: fixed;
+      bottom: 0px;
+      animation: ${bottomClimbUp} 1s linear forwards;
+    }
+`
+
+const HidePaginationWrapper = styled.div`
+    width: 100vw;
+    display: flex;
+    padding: 3px 0px;
+    justify-content: center;
+    & > *: {
+      marginTop: .2rem,
+    }
+    @media(max-width: 740px) {
+      background: #FFFFFF;
+      position: fixed;
+      bottom: -34px;
+      animation: ${bottomSlideDown} 1s linear forwards;
+    }
+`
 
 export default function PaginationRounded({pagesCount, rowsPerPage, totalPage, onChangePage}) {
-  const classes = useStyles();
-
-  return (
-    <div className={classes.root}>
+  // const classes = useStyles();
+  const isScrollDown = useGetNowScrollDirection()
+  console.log('isScrollDown', isScrollDown)
+  return isScrollDown ? (
+    <HidePaginationWrapper>
       <Pagination count={pagesCount} onChange={onChangePage} variant="outlined" shape="rounded" rowsPerPage={rowsPerPage}/>
-    </div>
+    </HidePaginationWrapper>
+  ) : (
+    <PaginationWrapper>
+      <Pagination count={pagesCount} onChange={onChangePage} variant="outlined" shape="rounded" rowsPerPage={rowsPerPage}/>
+    </PaginationWrapper>
   );
 }
