@@ -2,8 +2,6 @@ import React from 'react'
 import Input from '@material-ui/core/Input';
 import { useForm } from "react-hook-form";
 
-
-
 function InputSearchBarForm({onSubmit, searchText}) {
   const { handleSubmit, register, errors } = useForm();
 

@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
-import InputSearchBarForm from "./components/InputSearchBarForm";
+import HideableOnScrollHeader from "./HideableOnScrollHeader";
 import VideoCardsLayout from "./components/VideoCardsLayout";
 import VideoCardItem from "./components/VideoCardItem";
 import Paginations from "./components/Paginations";
@@ -11,7 +11,6 @@ import {
   youtube_querySWRFetcher_Fetch100CountData,
 } from "apis";
 import useSWR from "swr";
-import { useHistory } from "react-router-dom";
 import { AppEasyContext } from "App";
 import styled from "styled-components";
 
@@ -47,6 +46,7 @@ const VideosCenterPositionedWrapper = styled.section`
   display: flex;
   justify-content: center;
   width: 100vw;
+  margin-top: 32px;
 `;
 
 function MainPage() {
@@ -56,7 +56,6 @@ function MainPage() {
     youtube_querySWRFetcher_Fetch100CountData,
     { revalidateOnFocus: false }
   );
-  const history = useHistory();
   const pageInfo = data?.pageInfo ?? {
     totalResults: 0,
   };
@@ -83,11 +82,7 @@ function MainPage() {
 
   return (
     <main>
-      <InputSearchBarForm
-        placeholder="搜尋"
-        onSubmit={onSubmit}
-        searchText={searchText}
-      />
+      <HideableOnScrollHeader onSubmit={onSubmit} searchText={searchText} />
       <VideosCenterPositionedWrapper>
         <VideoCardsLayout>
           {partialData.map((item) => (
@@ -95,13 +90,6 @@ function MainPage() {
           ))}
         </VideoCardsLayout>
       </VideosCenterPositionedWrapper>
-      <button
-        onClick={() => {
-          history.push("/collections");
-        }}
-      >
-        to收藏頁
-      </button>
       {renderPaginations(bunchResultCount, ROW_PER_PAGE, handleChangePage)}
     </main>
   );

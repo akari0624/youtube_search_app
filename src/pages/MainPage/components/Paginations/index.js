@@ -36,7 +36,7 @@ const PaginationWrapper = styled.div`
       background: #FFFFFF;
       position: fixed;
       bottom: 0px;
-      animation: ${bottomClimbUp} 1s linear forwards;
+      animation: ${bottomClimbUp} .5s linear forwards;
     }
 `
 
@@ -52,7 +52,7 @@ const HidePaginationWrapper = styled.div`
       background: #FFFFFF;
       position: fixed;
       bottom: -34px;
-      animation: ${bottomSlideDown} 1s linear forwards;
+      animation: ${bottomSlideDown} .5s linear forwards;
     }
 `
 
