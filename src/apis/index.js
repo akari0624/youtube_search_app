@@ -81,34 +81,34 @@ export const youtube_querySWRFetcher = (url) => {
 
 export const youtube_querySWRFetcher_Fetch100CountData = async (url) => {
 
-  return RDOFakeData;
+   return RDOFakeData;
 
-  try {
-    const response1 = await fetch(url);
-    invariant(response1.ok, `error: ${response1.status}`)
-    const result1 = await response1.json();
-    invariant(!result1.error, `error: ${result1?.error?.message}`)
-    const shouldFetchMore =
-      result1?.pageInfo?.totalResults > ONE_TIME_FETCH_YOUTUBE_API_THRESHOLD;
+  // try {
+  //   const response1 = await fetch(url);
+  //   invariant(response1.ok, `error: ${response1.status}`)
+  //   const result1 = await response1.json();
+  //   invariant(!result1.error, `error: ${result1?.error?.message}`)
+  //   const shouldFetchMore =
+  //     result1?.pageInfo?.totalResults > ONE_TIME_FETCH_YOUTUBE_API_THRESHOLD;
 
-    const nextPageToken = result1?.nextPageToken;
+  //   const nextPageToken = result1?.nextPageToken;
 
-    if (shouldFetchMore && nextPageToken) {
-      const response2 = await fetch(url + `&pageToken=${nextPageToken}`);
-      invariant(response2.ok, `error: ${response2.status}`)
-      const result2 = await response2.json();
-      invariant(!result1.error, `error: ${result1?.error?.message}`)
-      result1.items.push(...result2.items);
-    }
+  //   if (shouldFetchMore && nextPageToken) {
+  //     const response2 = await fetch(url + `&pageToken=${nextPageToken}`);
+  //     invariant(response2.ok, `error: ${response2.status}`)
+  //     const result2 = await response2.json();
+  //     invariant(!result1.error, `error: ${result1?.error?.message}`)
+  //     result1.items.push(...result2.items);
+  //   }
 
-    return result1;
-  } catch (err) {
-    console.error(err)
-    swal.fire({
-      icon: "error",
-      titleText: "發生錯誤",
-      text: err.message,
-    });
-  }
-  return null;
+  //   return result1;
+  // } catch (err) {
+  //   console.error(err)
+  //   swal.fire({
+  //     icon: "error",
+  //     titleText: "發生錯誤",
+  //     text: err.message,
+  //   });
+  // }
+  // return null;
 };

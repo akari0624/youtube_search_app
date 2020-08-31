@@ -13,6 +13,7 @@ import {
 import useSWR from "swr";
 import { AppEasyContext } from "App";
 import styled from "styled-components";
+import { countPageCount } from 'logics'
 
 const countSliceIndex = (nowPage, countPerPage) => {
   const lastPlusOneIndex = nowPage * countPerPage;
@@ -21,10 +22,7 @@ const countSliceIndex = (nowPage, countPerPage) => {
   return [startIndex, lastPlusOneIndex];
 };
 
-const countPageCount = (nowBounchDataCount, rowPerPage) => {
-  const pages = Math.floor(nowBounchDataCount / rowPerPage);
-  return nowBounchDataCount % rowPerPage > 0 ? pages + 1 : pages;
-};
+
 
 const ROW_PER_PAGE = 12;
 

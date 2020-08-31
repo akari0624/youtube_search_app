@@ -4,16 +4,36 @@ import { getCollections } from "logics";
 import { useHistory } from "react-router-dom";
 import VideoCardItem from "../MainPage/components/VideoCardItem";
 import VideoCardLayout from "../MainPage/components/VideoCardsLayout";
+import Paginations from "../MainPage/components/Paginations";
 import styled from 'styled-components'
+import { countPageCount } from 'logics'
 
 
 const VideosCenterPositionedWrapper = styled.section`
   display: flex;
   justify-content: center;
   width: 100vw;
+  flex-direction: column;
 `
+
+const ROW_PER_PAGE = 12;
+
+const renderPaginations = (bunchResultCount, rowPerPage, handleChangePage) => {
+  if (bunchResultCount > 0) {
+    const pagesCount = countPageCount(bunchResultCount, rowPerPage);
+    return (
+      <Paginations
+        pagesCount={pagesCount}
+        rowsPerPage={ROW_PER_PAGE}
+        onChangePage={handleChangePage}
+      />
+    );
+  }
+  return null;
+};
 function CollectionsPage(props) {
   const [nowCollections, setNowCollections] = useState([]);
+  const [currPage, setCurrPage] = useState(1);
   const history = useHistory();
   useEffect(() => {
     const collections = getCollections();
@@ -30,6 +50,10 @@ function CollectionsPage(props) {
     }
   };
 
+  const handleChangePage = (event, newPage) => {
+    setCurrPage(newPage);
+  };
+
   const renderCollections = (items) =>
     items.map((item) => (
       <VideoCardItem
@@ -39,12 +63,21 @@ function CollectionsPage(props) {
       />
     ));
 
+    const bunchResultCount = nowCollections.length;
+
   return (
-    <div>
+    <main>
       <h1>CollectionsPage</h1>
       <VideosCenterPositionedWrapper>
       {nowCollections.length > 0 ? (
-        <VideoCardLayout>{renderCollections(nowCollections)}</VideoCardLayout>
+          <>
+          <VideosCenterPositionedWrapper>
+            <VideoCardLayout>
+              {renderCollections(nowCollections)}
+            </VideoCardLayout>
+          </VideosCenterPositionedWrapper>
+          {renderPaginations(bunchResultCount, ROW_PER_PAGE, handleChangePage)}
+</>
       ) : (
         <div>目前沒有收藏</div>
       )}
@@ -56,7 +89,7 @@ function CollectionsPage(props) {
       >
         回首頁
       </button>
-    </div>
+    </main>
   );
 }
 

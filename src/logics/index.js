@@ -87,3 +87,8 @@ export const removeVideoFromCollections = (id) => {
     return false;
   }
 };
+
+export const countPageCount = (nowBounchDataCount, rowPerPage) => {
+  const pages = Math.floor(nowBounchDataCount / rowPerPage);
+  return nowBounchDataCount % rowPerPage > 0 ? pages + 1 : pages;
+};
