@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import VideoCardItem from "../MainPage/components/VideoCardItem";
 import VideoCardLayout from "../MainPage/components/VideoCardsLayout";
 import Paginations from "../MainPage/components/Paginations";
+import HideableOnScrollHeader from './HideableOnScrollHeader'
 import styled from 'styled-components'
 import { countPageCount } from 'logics'
 
@@ -14,6 +15,7 @@ const VideosCenterPositionedWrapper = styled.section`
   justify-content: center;
   width: 100vw;
   flex-direction: column;
+  margin-top: 48px;
 `
 
 const ROW_PER_PAGE = 12;
@@ -67,7 +69,7 @@ function CollectionsPage(props) {
 
   return (
     <main>
-      <h1>CollectionsPage</h1>
+      <HideableOnScrollHeader />
       <VideosCenterPositionedWrapper>
       {nowCollections.length > 0 ? (
           <>
@@ -82,13 +84,6 @@ function CollectionsPage(props) {
         <div>目前沒有收藏</div>
       )}
       </VideosCenterPositionedWrapper>
-      <button
-        onClick={() => {
-          history.push("/");
-        }}
-      >
-        回首頁
-      </button>
     </main>
   );
 }
