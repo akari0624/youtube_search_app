@@ -22,13 +22,22 @@ const MoreFunctionShieldWrapper = styled.section`
   align-items: center;
 `;
 
-const AddToCollectionButton = styled.button`
+const AddToCollectionButton = styled.div`
+  padding: 2px;
+  color: #FFFFFF;
+  background: #008008;
   border-radius: 5px;
+  margin-right: 4px;
+  cursor:pointer;
 `;
 
 
-const PlayVideoButton = styled.button`
+const PlayVideoButton = styled.div`
+  padding: 2px;
+  color: #FFFFFF;
+  background: #6699FF;
   border-radius: 5px;
+  cursor:pointer;
 `;
 
 function MoreFunctionShield({ onMouseLeave, itemData, onCancelCollectionDone }) {
