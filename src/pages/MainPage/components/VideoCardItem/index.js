@@ -39,6 +39,7 @@ function VideoCardItem({ item, onCancelCollectionDone }) {
       </FunctionalVideoCardWrapper>
       <div>{item.snippet.title}</div>
       <div>{item.snippet.description}</div>
+      <div>{item.duration}</div>
     </VideoCardWrapper>
   );
 }

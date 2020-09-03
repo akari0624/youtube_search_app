@@ -7,7 +7,7 @@ import VideoCardLayout from "../MainPage/components/VideoCardsLayout";
 import Paginations from "../MainPage/components/Paginations";
 import HideableOnScrollHeader from './HideableOnScrollHeader'
 import styled from 'styled-components'
-import { countPageCount } from 'logics'
+import { countPageCount, countSliceIndex } from 'logics'
 
 
 const VideosCenterPositionedWrapper = styled.section`
@@ -52,6 +52,16 @@ function CollectionsPage(props) {
     }
   };
 
+  const [startIndex, lastPlusOneIndex] = countSliceIndex(
+    currPage,
+    ROW_PER_PAGE
+  );
+  const bunchResultCount = nowCollections.length;
+  const partialData =
+  nowCollections.length > 0
+    ? nowCollections.slice(startIndex, lastPlusOneIndex)
+    : [];
+
   const handleChangePage = (event, newPage) => {
     setCurrPage(newPage);
   };
@@ -65,17 +75,17 @@ function CollectionsPage(props) {
       />
     ));
 
-    const bunchResultCount = nowCollections.length;
+    
 
   return (
     <main>
       <HideableOnScrollHeader />
       <VideosCenterPositionedWrapper>
-      {nowCollections.length > 0 ? (
+      {partialData.length > 0 ? (
           <>
           <VideosCenterPositionedWrapper>
             <VideoCardLayout>
-              {renderCollections(nowCollections)}
+              {renderCollections(partialData)}
             </VideoCardLayout>
           </VideosCenterPositionedWrapper>
           {renderPaginations(bunchResultCount, ROW_PER_PAGE, handleChangePage)}

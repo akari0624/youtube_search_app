@@ -1,28 +1,19 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useCallback, memo } from "react";
 import PropTypes from "prop-types";
 import HideableOnScrollHeader from "./HideableOnScrollHeader";
 import VideoCardsLayout from "./components/VideoCardsLayout";
 import VideoCardItem from "./components/VideoCardItem";
 import Paginations from "./components/Paginations";
 import {
-  getYOUTUBE_DATA_V3_URL,
-  youtube_querySWRFetcher,
-  getYOUTUBE_DATA_V3_URL_MAXROW_PERFETCH,
+  getYOUTUBE_DATA_V3_SEARCH_URL_MAXROW_PERFETCH,
   youtube_querySWRFetcher_Fetch100CountData,
+  getVideoContentDetailFechingURL,
+  fetchVideodetailByIds,
 } from "apis";
 import useSWR from "swr";
 import { AppEasyContext } from "App";
 import styled from "styled-components";
-import { countPageCount } from 'logics'
-
-const countSliceIndex = (nowPage, countPerPage) => {
-  const lastPlusOneIndex = nowPage * countPerPage;
-  const startIndex = lastPlusOneIndex - countPerPage;
-
-  return [startIndex, lastPlusOneIndex];
-};
-
-
+import { countPageCount, countSliceIndex } from "logics";
 
 const ROW_PER_PAGE = 12;
 
@@ -50,7 +41,7 @@ const VideosCenterPositionedWrapper = styled.section`
 function MainPage() {
   const { searchText, setSearchText } = useContext(AppEasyContext);
   const { data, error } = useSWR(
-    getYOUTUBE_DATA_V3_URL_MAXROW_PERFETCH(searchText),
+    getYOUTUBE_DATA_V3_SEARCH_URL_MAXROW_PERFETCH(searchText),
     youtube_querySWRFetcher_Fetch100CountData,
     { revalidateOnFocus: false }
   );
@@ -70,13 +61,31 @@ function MainPage() {
       ? bunchResults.slice(startIndex, lastPlusOneIndex)
       : [];
 
+  const {
+    data: partitalContentDdetailData,
+    error: error2,
+  } = useSWR(
+    getVideoContentDetailFechingURL(partialData),
+    fetchVideodetailByIds,
+    { revalidateOnFocus: false }
+  );
+  console.log("partitalContentDdetailData", partitalContentDdetailData);
+
+  if (partitalContentDdetailData) {
+    // merge the data
+    partialData.forEach((p, idx) => {
+      p.duration =
+        partitalContentDdetailData?.items[idx]?.contentDetails?.duration;
+    });
+  }
+
   const onSubmit = (values) => {
     setSearchText((prev) => values.keywords);
   };
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = useCallback((event, newPage) => {
     setCurrPage(newPage);
-  };
+  }, []);
 
   return (
     <main>
@@ -88,7 +97,7 @@ function MainPage() {
           ))}
         </VideoCardsLayout>
       </VideosCenterPositionedWrapper>
-      {renderPaginations(bunchResultCount, ROW_PER_PAGE, handleChangePage)}
+      {renderPaginations(bunchResultCount, ROW_PER_PAGE, handleChangePage) }
     </main>
   );
 }

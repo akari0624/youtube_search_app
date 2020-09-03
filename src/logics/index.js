@@ -92,3 +92,10 @@ export const countPageCount = (nowBounchDataCount, rowPerPage) => {
   const pages = Math.floor(nowBounchDataCount / rowPerPage);
   return nowBounchDataCount % rowPerPage > 0 ? pages + 1 : pages;
 };
+
+export const countSliceIndex = (nowPage, countPerPage) => {
+  const lastPlusOneIndex = nowPage * countPerPage;
+  const startIndex = lastPlusOneIndex - countPerPage;
+
+  return [startIndex, lastPlusOneIndex];
+};
