@@ -56,17 +56,17 @@ const HidePaginationWrapper = styled.div`
     }
 `
 
-export default function PaginationRounded({pagesCount, rowsPerPage, totalPage, onChangePage}) {
+export default function PaginationRounded({pagesCount, rowsPerPage, totalPage, onChangePage, nowPage}) {
   // const classes = useStyles();
   const isScrollDown = useGetNowScrollDirection()
   console.log('isScrollDown', isScrollDown)
   return isScrollDown ? (
     <HidePaginationWrapper>
-      <Pagination count={pagesCount} onChange={onChangePage} variant="outlined" shape="rounded" rowsPerPage={rowsPerPage}/>
+      <Pagination count={pagesCount} onChange={onChangePage} page={nowPage} variant="outlined" shape="rounded" rowsPerPage={rowsPerPage}/>
     </HidePaginationWrapper>
   ) : (
     <PaginationWrapper>
-      <Pagination count={pagesCount} onChange={onChangePage} variant="outlined" shape="rounded" rowsPerPage={rowsPerPage}/>
+      <Pagination count={pagesCount} onChange={onChangePage} page={nowPage} variant="outlined" shape="rounded" rowsPerPage={rowsPerPage}/>
     </PaginationWrapper>
   );
 }
