@@ -1,4 +1,5 @@
 import swal from "sweetalert2";
+import moment from 'moment'
 
 const COLLECTIONs_KEY_IN_LOCAL_STORAGE = "videoCollections";
 
@@ -99,3 +100,16 @@ export const countSliceIndex = (nowPage, countPerPage) => {
 
   return [startIndex, lastPlusOneIndex];
 };
+
+
+export const parseISO8601DurationToTimes = (durationText) => {
+  if(!durationText) {
+    return '無法取得影片長度'
+  }
+  const duration = moment.duration(durationText)
+  const _hours = duration.hours()
+  const _minutes = duration.minutes()
+  const _seconds = duration.seconds()
+   return `${Number(_hours) ? _hours+'時' : ''} ${Number(_minutes) ? _minutes+'分' : ''} ${Number(_seconds) ? _seconds+'秒': ''}`
+
+}

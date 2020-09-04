@@ -112,34 +112,6 @@ export const RDOFakeData = {
     },
     {
       "kind": "youtube#searchResult",
-      "etag": "ERxkQCU7NocjDba2azvxISmPR1I",
-      "id": {
-        "kind": "youtube#channel",
-        "channelId": "UCkVWhzOyD_pLXtK9h_zXaSg"
-      },
-      "snippet": {
-        "publishedAt": "2009-01-14T12:43:09Z",
-        "channelId": "UCkVWhzOyD_pLXtK9h_zXaSg",
-        "title": "fifo5220",
-        "description": "Highlighty/reakcie od Rada Príležitostne aj nejaké celé záznamy Official highlighter for Twitch channel rdo1337 All rights reserved Radoslav Tóth › rdo1337 ...",
-        "thumbnails": {
-          "default": {
-            "url": "https://yt3.ggpht.com/-AW3SPHJS-rY/AAAAAAAAAAI/AAAAAAAAAAA/kB50hozsfjQ/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"
-          },
-          "medium": {
-            "url": "https://yt3.ggpht.com/-AW3SPHJS-rY/AAAAAAAAAAI/AAAAAAAAAAA/kB50hozsfjQ/s240-c-k-no-mo-rj-c0xffffff/photo.jpg"
-          },
-          "high": {
-            "url": "https://yt3.ggpht.com/-AW3SPHJS-rY/AAAAAAAAAAI/AAAAAAAAAAA/kB50hozsfjQ/s800-c-k-no-mo-rj-c0xffffff/photo.jpg"
-          }
-        },
-        "channelTitle": "fifo5220",
-        "liveBroadcastContent": "upcoming",
-        "publishTime": "2009-01-14T12:43:09Z"
-      }
-    },
-    {
-      "kind": "youtube#searchResult",
       "etag": "a9Bn_mbDipHcpcCmhBKkVYUfrhM",
       "id": {
         "kind": "youtube#video",
