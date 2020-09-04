@@ -2,19 +2,13 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import MoreFunctionShield from "./MoreFunctionShield";
+import { VideoCardWrapper } from './styled'
+import { parseISO8601DurationToTimes } from 'logics'
 
 const FunctionalVideoCardWrapper = styled.section`
   position: relative;
 `;
 
-const VideoCardWrapper = styled.article`
-  margin: 0.4rem;
-  width: 320px;
-  .imgWrapper {
-    display: flex;
-    justify-content: center;
-  } 
-`;
 
 function VideoCardItem({ item, onCancelCollectionDone }) {
   const [isShowShield, setIsShowShield] = useState(false);
@@ -37,9 +31,9 @@ function VideoCardItem({ item, onCancelCollectionDone }) {
           <img src={item.snippet.thumbnails.medium.url} alt={item.title} />
         </div>
       </FunctionalVideoCardWrapper>
-      <div>{item.snippet.title}</div>
-      <div>{item.snippet.description}</div>
-      <div>{item.duration}</div>
+      <div className="title">{item.snippet.title}</div>
+      <div className="description">{item.snippet.description}</div>
+      <div className="duration">{parseISO8601DurationToTimes(item.duration)}</div>
     </VideoCardWrapper>
   );
 }
