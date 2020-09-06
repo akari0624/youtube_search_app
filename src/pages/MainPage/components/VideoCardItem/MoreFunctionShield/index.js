@@ -74,7 +74,7 @@ function MoreFunctionShield({ onMouseLeave, itemData, onCancelCollectionDone }) 
           加入收藏
         </AddToCollectionButton>
       )}
-      <PlayVideoButton onClick={() => {history.push('/player')}}>播放影片</PlayVideoButton>
+      <PlayVideoButton onClick={() => {history.push('/player', {itemData})}}>播放影片</PlayVideoButton>
     </MoreFunctionShieldWrapper>
   );
 }
