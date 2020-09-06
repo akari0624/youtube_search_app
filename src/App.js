@@ -27,9 +27,10 @@ function AppRoutes() {
 
 const ProviderWrappedApp = () => {
   const [searchText, setSearchText] = useState("");
+  const [mainPageCurrPageNumber, setMainPageCurrPageNumber] = useState(1)
 
   return (
-    <AppEasyContext.Provider value={{ searchText, setSearchText }}>
+    <AppEasyContext.Provider value={{ searchText, setSearchText, mainPageCurrPageNumber, setMainPageCurrPageNumber }}>
       <AppRoutes />
     </AppEasyContext.Provider>
   );
