@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import VideoCardItem from "../MainPage/components/VideoCardItem";
 import VideoCardLayout from "../MainPage/components/VideoCardsLayout";
 import Paginations from "../MainPage/components/Paginations";
-import HideableOnScrollHeader from './HideableOnScrollHeader'
+import HideableOnScrollHeader from 'components/NavigatorHideOnScrollHeader'
 import styled from 'styled-components'
 import { countPageCount, countSliceIndex } from 'logics'
 
@@ -14,7 +14,6 @@ const VideosCenterPositionedWrapper = styled.section`
   display: flex;
   justify-content: center;
   width: 100vw;
-  flex-direction: column;
   margin-top: 48px;
 `
 
@@ -33,6 +32,9 @@ const renderPaginations = (bunchResultCount, rowPerPage, handleChangePage) => {
   }
   return null;
 };
+
+const HeaderGoBack = (history) => {history.push('/')}
+
 function CollectionsPage(props) {
   const [nowCollections, setNowCollections] = useState([]);
   const [currPage, setCurrPage] = useState(1);
@@ -79,8 +81,7 @@ function CollectionsPage(props) {
 
   return (
     <main>
-      <HideableOnScrollHeader />
-      <VideosCenterPositionedWrapper>
+      <HideableOnScrollHeader goto={HeaderGoBack}>collections page</HideableOnScrollHeader>
       {partialData.length > 0 ? (
           <>
           <VideosCenterPositionedWrapper>
@@ -93,7 +94,6 @@ function CollectionsPage(props) {
       ) : (
         <div>目前沒有收藏</div>
       )}
-      </VideosCenterPositionedWrapper>
     </main>
   );
 }
