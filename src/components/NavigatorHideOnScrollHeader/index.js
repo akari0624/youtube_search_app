@@ -33,6 +33,7 @@ position: absolute;
   left: 20px;
   font-size: 2em;
   line-height: 48px;
+  cursor: pointer;
   &:before {
     content: '<';
   }
@@ -68,22 +69,21 @@ position: relative;
   }
 `;
 
-const TitleText = 'collectons page'
 
-function HideableOnScrollHeader() {
+function HideableOnScrollHeader({children, goto}) {
       const history = useHistory()
       const backToMainPage =  (evt) => {
-        history.push("/")
+        goto(history)
       }
   const isScrollDown = useGetNowScrollDirection();
 
   return isScrollDown ? (
     <HideTopBarHeaderWrapper>
-      <BackTo onClick={backToMainPage} /><Title>{TitleText}</Title>
+      <BackTo onClick={backToMainPage} /><Title>{children}</Title>
     </HideTopBarHeaderWrapper>
   ) : (
     <TopBarHeaderWrapper>
-      <BackTo onClick={backToMainPage} /><Title>{TitleText}</Title>
+      <BackTo onClick={backToMainPage} /><Title>{children}</Title>
     </TopBarHeaderWrapper>
   );
 }

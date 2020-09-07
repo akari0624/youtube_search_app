@@ -40,7 +40,7 @@ const VideosCenterPositionedWrapper = styled.section`
 `;
 
 function MainPage() {
-  const { searchText, setSearchText } = useContext(AppEasyContext);
+  const { searchText, setSearchText, mainPageCurrPageNumber, setMainPageCurrPageNumber } = useContext(AppEasyContext);
   const { data, error } = useSWR(
     getYOUTUBE_DATA_V3_SEARCH_URL_MAXROW_PERFETCH(searchText),
     youtube_querySWRFetcher_Fetch100CountData,
@@ -50,11 +50,10 @@ function MainPage() {
     totalResults: 0,
   };
 
-  const [currPage, setCurrPage] = useState(1);
   const bunchResults = data?.items ?? [];
   const bunchResultCount = bunchResults.length;
   const [startIndex, lastPlusOneIndex] = countSliceIndex(
-    currPage,
+    mainPageCurrPageNumber,
     ROW_PER_PAGE
   );
   const partialData =
@@ -85,7 +84,7 @@ function MainPage() {
   };
 
   const handleChangePage = useCallback((event, newPage) => {
-    setCurrPage(newPage);
+    setMainPageCurrPageNumber(newPage);
   }, []);
 
   return (
@@ -98,7 +97,7 @@ function MainPage() {
           ))}
         </VideoCardsLayout>
       </VideosCenterPositionedWrapper>
-      {renderPaginations(bunchResultCount, ROW_PER_PAGE, handleChangePage, currPage) }
+      {renderPaginations(bunchResultCount, ROW_PER_PAGE, handleChangePage, mainPageCurrPageNumber) }
     </main>
   );
 }

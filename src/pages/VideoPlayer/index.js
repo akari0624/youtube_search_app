@@ -5,14 +5,27 @@ import { useHistory } from "react-router-dom";
 // const engine = require('flowplayer-hlsjs');
 import flowplayer from 'flowplayer';
 import engine from 'flowplayer-hlsjs';
+import { VideoPlayer, VideoPlayerPageVideoInfoWrapper } from './styled'
+import { parseISO8601DurationToTimes } from 'logics';
+import HideableOnScrollHeader from 'components/NavigatorHideOnScrollHeader'
 import "../../css/flowplayer/flowplayer.min.css";
+
+
+const VideoInfo = ({itemData}) => (
+  <VideoPlayerPageVideoInfoWrapper>
+    <h1 className="title">{itemData.snippet.title}</h1>
+    <div className="description">{itemData.snippet.description}</div>
+    <div className="duration">{parseISO8601DurationToTimes(itemData.duration)}</div>
+  </VideoPlayerPageVideoInfoWrapper>
+)
 
 
 const EXAMPLE_M3U8_URL = 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8'
 
-function VideoPlayerPage(props) {
-  const history = useHistory();
+const navigateBackCallback = (history) => {history.goBack()}
 
+function VideoPlayerPage(props) {
+  const {itemData} = props.location.state
 useLayoutEffect(() => {
   engine(flowplayer);
 
@@ -29,17 +42,9 @@ useLayoutEffect(() => {
 
   return (
     <>
-    <div id="videoPlayerContainer">
-      
-    
-    </div>
-      <button
-        onClick={() => {
-          history.push("/");
-        }}
-      >
-        回首頁
-      </button>
+    <HideableOnScrollHeader goto={navigateBackCallback}>video player page</HideableOnScrollHeader>
+    <VideoPlayer id="videoPlayerContainer"/>
+    <VideoInfo itemData={itemData} />
       </>
   );
 }

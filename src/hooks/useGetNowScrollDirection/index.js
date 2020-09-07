@@ -16,12 +16,12 @@ export function useGetNowScrollDirection(thresholdHeight = 30) {
       isScrollDownRef.current = !isScrollDownRef.current
       setIsScrollDown(false);
     }
+     if (
+       Math.abs(nowScrollTop - previousScrollTopRef.current) >= thresholdHeight
+     ) {
+       previousScrollTopRef.current = nowScrollTop;
+     }
 
-    if (
-      Math.abs(nowScrollTop - previousScrollTopRef.current) >= thresholdHeight
-    ) {
-      previousScrollTopRef.current = nowScrollTop;
-    }
   };
 
   useEffect(() => {
