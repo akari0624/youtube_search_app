@@ -20,9 +20,14 @@ function VideoCardItem({ item, onCancelCollectionDone }) {
     setIsShowShield(false);
   };
 
+  const handleOnClick = (evt) => {
+    setIsShowShield(prev => !prev);
+  };
+
+
   return (
     <VideoCardWrapper>
-      <FunctionalVideoCardWrapper onMouseEnter={handleOnMouseEnter}>
+      <FunctionalVideoCardWrapper onClick={handleOnClick} onMouseEnter={handleOnMouseEnter}>
         {isShowShield && (
           <MoreFunctionShield
             onMouseLeave={handleOnMouseLeave}

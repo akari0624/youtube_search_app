@@ -29,7 +29,6 @@ const Title = styled.h1`
 `
 
 const BackTo = styled.div`
-position: absolute;
   left: 20px;
   font-size: 2em;
   line-height: 48px;
