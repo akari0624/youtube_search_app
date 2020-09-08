@@ -2,6 +2,7 @@
   "name": "youtube_searcher",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://akari0624.github.io/youtube_search_app/",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/lab": "^4.0.0-alpha.56",
@@ -25,7 +26,8 @@
     "start": "sh ./bash/start.sh",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "sh ./bash/deploy.sh"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -41,5 +43,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^3.1.0"
   }
 }
