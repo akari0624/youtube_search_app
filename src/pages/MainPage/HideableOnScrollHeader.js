@@ -54,16 +54,44 @@ const HideTopBarHeaderWrapper = styled.div`
   }
 `;
 
+export const PopoverContentWrapper = styled.div`
+  border-radius: 9px;
+  background-color: #FFFFFF;
+	padding: 8px 8px 8px 8px;
+	color: #565d84;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+	z-index: 8001;
+	
+	/** first level child*/
+	& > * {
+		display: flex;
+		justify-content: center;
+	}
+
+	& a {
+		color: #565d84;
+	}
+
+	& .lastShorterContent {
+		padding: 12px 0px 4px 0px;
+		border: none;
+    cursor: pointer;
+	}
+`
+
 const PopOverContent = () => {
   const history = useHistory();
   return (
-    <button
-      onClick={() => {
-        history.push("/collections");
-      }}
-    >
-      to收藏頁
-    </button>
+    <PopoverContentWrapper>
+      <div
+        className="lastShorterContent"
+        onClick={() => {
+          history.push("/collections");
+        }}
+      >
+        to收藏頁
+      </div>
+    </PopoverContentWrapper>
   );
 };
 
@@ -79,7 +107,6 @@ function HideableOnScrollHeader({ onSubmit, searchText }) {
       />
       <Popover
         CompToRender={PopOverContent}
-        onRightEdge
         offsetUpPX={4}
       >
         <NavMoreIcon dotColor="#808080" />
@@ -94,7 +121,6 @@ function HideableOnScrollHeader({ onSubmit, searchText }) {
       />
        <Popover
         CompToRender={PopOverContent}
-        onRightEdge
         offsetUpPX={4}
       >
         <NavMoreIcon dotColor="#808080" />
