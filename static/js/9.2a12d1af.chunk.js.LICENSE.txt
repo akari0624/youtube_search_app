@@ -1,0 +1,44 @@
+/*!
+
+   Flowplayer v7.2.7 (2018-08-13) | flowplayer.com/license
+
+*/
+
+/*!
+
+   hlsjs engine plugin for Flowplayer HTML5
+
+   Copyright (c) 2015-2017, Flowplayer Drive Oy
+
+   Released under the MIT License:
+   http://www.opensource.org/licenses/mit-license.php
+
+   Includes hls.js
+   Copyright (c) 2017 Dailymotion (http://www.dailymotion.com)
+   https://github.com/video-dev/hls.js/blob/master/LICENSE
+
+   Requires Flowplayer HTML5 version 6 or greater
+   $GIT_DESC$
+
+*/
+
+/*!
+         * The buffer module from node.js, for the browser.
+         *
+         * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+         * @license  MIT
+         */
+
+/*!
+        * $script.js JS loader & dependency manager
+        * https://github.com/ded/script.js
+        * (c) Dustin Diaz 2014 | License MIT
+        */
+
+/*!
+        * Bean - copyright (c) Jacob Thornton 2011-2012
+        * https://github.com/fat/bean
+        * MIT license
+        */
+
+/*! (C) WebReflection Mit Style License */
