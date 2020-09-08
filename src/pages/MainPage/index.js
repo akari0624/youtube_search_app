@@ -37,6 +37,7 @@ const VideosCenterPositionedWrapper = styled.section`
   justify-content: center;
   width: 100vw;
   margin-top: 32px;
+  margin-bottom: 38px;
 `;
 
 function MainPage() {
@@ -69,7 +70,6 @@ function MainPage() {
     fetchVideodetailByIds,
     { revalidateOnFocus: false }
   );
-  console.log("partitalContentDdetailData", partitalContentDdetailData);
 
   if (partitalContentDdetailData) {
     // merge the data
@@ -85,6 +85,7 @@ function MainPage() {
 
   const handleChangePage = useCallback((event, newPage) => {
     setMainPageCurrPageNumber(newPage);
+    window.scrollTo(0, 0)  // 換頁後，回到頁面最上面   mobileWeb上的換頁會需要   無限下拉的情境的話不需要這樣
   }, []);
 
   return (

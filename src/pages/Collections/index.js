@@ -19,7 +19,7 @@ const VideosCenterPositionedWrapper = styled.section`
 
 const ROW_PER_PAGE = 12;
 
-const renderPaginations = (bunchResultCount, rowPerPage, handleChangePage) => {
+const renderPaginations = (bunchResultCount, rowPerPage, handleChangePage, nowPage) => {
   if (bunchResultCount > 0) {
     const pagesCount = countPageCount(bunchResultCount, rowPerPage);
     return (
@@ -27,6 +27,7 @@ const renderPaginations = (bunchResultCount, rowPerPage, handleChangePage) => {
         pagesCount={pagesCount}
         rowsPerPage={ROW_PER_PAGE}
         onChangePage={handleChangePage}
+        nowPage={nowPage}
       />
     );
   }
@@ -89,7 +90,7 @@ function CollectionsPage(props) {
               {renderCollections(partialData)}
             </VideoCardLayout>
           </VideosCenterPositionedWrapper>
-          {renderPaginations(bunchResultCount, ROW_PER_PAGE, handleChangePage)}
+          {renderPaginations(bunchResultCount, ROW_PER_PAGE, handleChangePage, currPage)}
 </>
       ) : (
         <div>目前沒有收藏</div>
