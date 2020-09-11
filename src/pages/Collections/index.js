@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { getCollections } from "logics";
-import { useHistory } from "react-router-dom";
 import VideoCardItem from "../MainPage/components/VideoCardItem";
 import VideoCardLayout from "../MainPage/components/VideoCardsLayout";
 import Paginations from "../MainPage/components/Paginations";
@@ -39,7 +38,6 @@ const HeaderGoBack = (history) => {history.push('/')}
 function CollectionsPage(props) {
   const [nowCollections, setNowCollections] = useState([]);
   const [currPage, setCurrPage] = useState(1);
-  const history = useHistory();
   useEffect(() => {
     const collections = getCollections();
     if (collections) {

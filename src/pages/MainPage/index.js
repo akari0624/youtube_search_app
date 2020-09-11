@@ -1,9 +1,5 @@
 import React, { useState, useContext, useCallback, memo } from "react";
 import PropTypes from "prop-types";
-import HideableOnScrollHeader from "./HideableOnScrollHeader";
-import VideoCardsLayout from "./components/VideoCardsLayout";
-import VideoCardItem from "./components/VideoCardItem";
-import Paginations from "./components/Paginations";
 import {
   getYOUTUBE_DATA_V3_SEARCH_URL_MAXROW_PERFETCH,
   youtube_querySWRFetcher_Fetch100CountData,
@@ -14,10 +10,19 @@ import useSWR from "swr";
 import { AppEasyContext } from "App";
 import styled from "styled-components";
 import { countPageCount, countSliceIndex } from "logics";
+import HideableOnScrollHeader from "./HideableOnScrollHeader";
+import VideoCardsLayout from "./components/VideoCardsLayout";
+import VideoCardItem from "./components/VideoCardItem";
+import Paginations from "./components/Paginations";
 
 const ROW_PER_PAGE = 12;
 
-const renderPaginations = (bunchResultCount, rowPerPage, handleChangePage, nowPage) => {
+const renderPaginations = (
+  bunchResultCount,
+  rowPerPage,
+  handleChangePage,
+  nowPage
+) => {
   if (bunchResultCount > 0) {
     const pagesCount = countPageCount(bunchResultCount, rowPerPage);
     return (
@@ -41,7 +46,12 @@ const VideosCenterPositionedWrapper = styled.section`
 `;
 
 function MainPage() {
-  const { searchText, setSearchText, mainPageCurrPageNumber, setMainPageCurrPageNumber } = useContext(AppEasyContext);
+  const {
+    searchText,
+    setSearchText,
+    mainPageCurrPageNumber,
+    setMainPageCurrPageNumber,
+  } = useContext(AppEasyContext);
   const { data, error } = useSWR(
     getYOUTUBE_DATA_V3_SEARCH_URL_MAXROW_PERFETCH(searchText),
     youtube_querySWRFetcher_Fetch100CountData,
@@ -65,6 +75,7 @@ function MainPage() {
   const {
     data: partitalContentDdetailData,
     error: error2,
+    isValidating,
   } = useSWR(
     getVideoContentDetailFechingURL(partialData),
     fetchVideodetailByIds,
@@ -85,20 +96,25 @@ function MainPage() {
 
   const handleChangePage = useCallback((event, newPage) => {
     setMainPageCurrPageNumber(newPage);
-    window.scrollTo(0, 0)  // 換頁後，回到頁面最上面   mobileWeb上的換頁會需要   無限下拉的情境的話不需要這樣
+    window.scrollTo(0, 0); // 換頁後，回到頁面最上面   mobileWeb上的換頁會需要   無限下拉的情境的話不需要這樣
   }, []);
 
   return (
     <main>
-      <HideableOnScrollHeader onSubmit={onSubmit} searchText={searchText} />
+      <HideableOnScrollHeader isLoading={isValidating} onSubmit={onSubmit} searchText={searchText} />
       <VideosCenterPositionedWrapper>
-        <VideoCardsLayout>
-          {partialData.map((item) => (
-            <VideoCardItem key={item.id.videoId} item={item} />
-          ))}
-        </VideoCardsLayout>
+          <VideoCardsLayout>
+            {partialData.map((item) => (
+              <VideoCardItem key={item.id.videoId} item={item} />
+            ))}
+          </VideoCardsLayout>
       </VideosCenterPositionedWrapper>
-      {renderPaginations(bunchResultCount, ROW_PER_PAGE, handleChangePage, mainPageCurrPageNumber) }
+      {renderPaginations(
+        bunchResultCount,
+        ROW_PER_PAGE,
+        handleChangePage,
+        mainPageCurrPageNumber
+      )}
     </main>
   );
 }

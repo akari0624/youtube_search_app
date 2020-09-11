@@ -5,6 +5,7 @@ import InputSearchBarForm from "./components/InputSearchBarForm";
 import styled, { keyframes } from "styled-components";
 import { useHistory } from "react-router-dom";
 import { useGetNowScrollDirection } from "hooks/useGetNowScrollDirection";
+import Loading from "components/Loading";
 
 const TopClimbUp = keyframes`
   from {
@@ -95,7 +96,7 @@ const PopOverContent = () => {
   );
 };
 
-function HideableOnScrollHeader({ onSubmit, searchText }) {
+function HideableOnScrollHeader({ onSubmit, searchText, isLoading }) {
   const isScrollDown = useGetNowScrollDirection();
 
   return isScrollDown ? (
@@ -111,6 +112,7 @@ function HideableOnScrollHeader({ onSubmit, searchText }) {
       >
         <NavMoreIcon dotColor="#808080" />
       </Popover>
+      {isLoading ? <Loading /> : null}
     </HideTopBarHeaderWrapper>
   ) : (
     <TopBarHeaderWrapper>
@@ -125,6 +127,7 @@ function HideableOnScrollHeader({ onSubmit, searchText }) {
       >
         <NavMoreIcon dotColor="#808080" />
       </Popover>
+      {isLoading ? <Loading /> : null}
     </TopBarHeaderWrapper>
   );
 }
